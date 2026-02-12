@@ -1,5 +1,5 @@
 <template>
-    <h1>Hi</h1>
+    <h1>Hi Nuxt</h1>
 </template>
 
 <script setup lang="ts">
