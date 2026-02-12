@@ -30,7 +30,7 @@ services:
       DB_USER: root
       DB_PASSWORD: 1234
       DB_DATABASE: NTC
-      JWT_SECRET:"ntc&&1234"
+      JWT_SECRET: "ntc&&1234"
       CHOKIDAR_USEPOLLING: true
     networks: ["app-network"]
 
@@ -57,7 +57,7 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL: NTC
+      MYSQL_DATABASE: NTC
     networks: ["app-network"]
 
 networks:
