@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container ref="r">
         <v-row>
             <v-col cols="12">
                 <v-form v-if="user.status_eva === 2 || user.status_eva === 3">
@@ -8,7 +8,7 @@
                         <p>ชื่อ - นามสกุล : {{ user.first_name }} {{ user.last_name }}</p>
                         <p>รอบประเมินที่ : {{ user.round_sys }} ปี {{ user.year_sys }}</p>
                     </v-card>
-                    <v-row class="mt-2" v-for="(topic,t) in topics" :key="topic.id_topic">
+                    <v-row class="mt-2" v-for="(topic,t) in topics" :key="topic.id_topic" >
                         <v-col cols="12">
                             <h1 class="text-h6">{{ t+1 }}.{{ topic.name_topic }}</h1>
                             <v-table class="table">
@@ -31,11 +31,14 @@
                                     <td class="border pa-1 text-center" style="width: 10%;">{{ indicate.score_member*indicate.point_indicate }}</td>
                                 </tr>
                             </v-table>
+                            
                         </v-col>
                     </v-row>
                     <div class="text-center mt-4">
                         <v-card color="success" class="pa-2 text-end">คะแนนนรวม : {{ user.total_eva }} คะแนน</v-card>
                     </div>
+                    <br>
+                            <!-- <center><v-btn color="warning" prepend-icon="mdi-printer" @click="pdf(r?$el : r)"></v-btn></center> -->
                 </v-form>
                 <v-alert type="info" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมิน</v-alert>
                 <v-alert type="warning" v-else>ยังไม่มีแบบประเมิน</v-alert>
@@ -47,11 +50,12 @@
 <script setup lang="ts">
 import axios from 'axios'
 import {staff} from '../../API/base'
+// import {pdf} from '../../API/pdf'
 
 const user = ref<any>({})
 const topics = ref<any>([])
 const id_eva = useRoute().params.id_eva
-
+const r = ref(null)
 const viweFile = (filename:string) =>{
     const url = `http://localhost:3001/uploads/evadetail/${filename}`
     window.open(url,'_blank')

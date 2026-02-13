@@ -54,7 +54,7 @@ router.delete('/:id_doc',verifyToken,requireRole('ฝ่ายบุคลาก
         const {id_doc} = req.params
         const [[d]] = await db.query(`select file from tb_doc where id_doc='${id_doc}'`)
         const fp = path.join(uploadDir,d.file)
-        if(fs.existsSync.fp){
+        if(fs.existsSync(fp)){
             fs.unlinkSync(fp)
         }
         await db.query(`delete from tb_doc where id_doc='${id_doc}'`)
