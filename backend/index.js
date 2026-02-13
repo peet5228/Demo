@@ -37,6 +37,15 @@ app.use('/api/Staff/round_eva',round_eva)
 const eva = require('./routes/Staff/eva')
 app.use('/api/Staff/eva',eva)
 
+const commit = require('./routes/Staff/commit')
+app.use('/api/Staff/commit',commit)
+
+const status = require('./routes/Staff/status')
+app.use('/api/Staff/status',status)
+
+const doc = require('./routes/Staff/doc')
+app.use('/api/Staff/doc',doc)
+
 // Committee Endpoint API ============
 const check_confirm = require('./routes/Commit/check_confirm')
 app.use('/api/Commit/check_confirm',check_confirm)
