@@ -11,7 +11,7 @@ router.post('/login',async (req,res) => {
         const {username,password,role} = req.body
         const [rows] = await db.query(`select * from tb_member where username=? and role=?`,[username,role])
         const m = rows[0]
-        if(!password || !(await bc.compare(password.m.password))) return res.status(403).json({message:'Invalid Password'})
+        if(!password || !(await bc.compare(password,m.password))) return res.status(403).json({message:'Invalid Password'})
         const token = jwt.sign(
             {id_member:m.id_member,username:m.username,role:m.role} , JWT_SECRET , {expiresIn:'2h'}
         )
