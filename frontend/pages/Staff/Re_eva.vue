@@ -31,7 +31,8 @@
                                     <td class="text-center border" colspan="10">ไม่พบข้อมูล</td>
                                 </tr>
                             </tbody>
-                        </v-table>
+                        </v-table><br>
+                        <center><v-btn color="warning" class="no-p" @click="printDoc" prepend-icon="mdi-printer">พิมพ์</v-btn></center>
                     </v-card-text>
                 </v-card>
    </v-container>
@@ -42,6 +43,10 @@ import axios from 'axios'
 import {api,staff} from '../../API/base'
 
 const token = process.client ? localStorage.getItem('token') : null
+
+const printDoc = () =>{
+    window.print()
+}
 
 const result = ref ([])
 
@@ -145,9 +150,18 @@ const del = async (id_member:number) => {
     }
 }
 
+
 onMounted(fetch)
 </script>
 
 <style scoped>
-
+@media print{
+    .v-app-bar,.v-btn.no-p{
+        display: none !important;
+        margin: 0 !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+}
 </style>

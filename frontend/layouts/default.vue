@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="#7d0c14" flat>
+    <v-app-bar :color="bg(user.role)" flat>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>NTC evaluation system</v-toolbar-title>
       <v-spacer />
@@ -93,6 +93,12 @@ const fetchUser = async () =>{
         await navigateTo('/',{replace:true}) 
     }
 }
+const bg = (role) => {
+  if(role === 'ฝ่ายบุคลากร') return '#647687'
+  if(role === 'กรรมการประเมิน') return '#007FFF'
+  if(role === 'ผู้รับการประเมินผล') return '#7d0c14'
+}
+
 onMounted(fetchUser)
 </script>
 

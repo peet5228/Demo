@@ -37,7 +37,7 @@
                         <v-card color="success" class="pa-2 text-end">คะแนนนรวม : {{ user.total_eva }} คะแนน</v-card>
                     </div>
                 </v-form>
-                <v-alert type="info" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมิน</v-alert>
+                <v-alert type="info" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมินตนเอง</v-alert>
                 <v-alert type="warning" v-else>ยังไม่มีแบบประเมิน</v-alert>
             </v-col>
         </v-row>

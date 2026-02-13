@@ -31,7 +31,7 @@
                                     :type="showPw2 ? 'text' : 'password'" :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'" @click:append-inner="showPw2 = !showPw2"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-select label="เลือกประะเภทสมาชิก" v-model="form.role" :items="['ฝ่ายบุคลากร','กรรมการประเมิน','ผู้รับการประเมินผล']" :error-messages="error.role"></v-select>
+                                    <v-select label="เลือกประะเภทสมาชิก" v-model="form.role" :items="['กรรมการประเมิน','ผู้รับการประเมินผล']" :error-messages="error.role"></v-select>
                                 </v-col>
                                 <v-col cols="12" class="text-center">
                                     <v-btn type="submit" color="#7d0c14">สมัคร</v-btn>&nbsp;&nbsp;<v-btn type="reset" color="#7d0c14">ยกเลิก</v-btn>

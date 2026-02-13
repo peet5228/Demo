@@ -3,6 +3,8 @@
         <v-row align="center" justify="center">
             <v-col cols="12" md="6" lg="5">
                 <v-card color="#7d0c14" elevation="10" rounded="lg">
+                    <br>
+                    <center><img src="../public/img/logo.png" width="20%" alt=""></center>
                     <p class="text-center font-weight-bold text-white text-h5">NTC EVALUATION SYSTEM</p>
                     <p class="text-center font-weight-bold text-white ">ระบบประเมินบุคลากรวิทยาลัยเทคนิคน่าน</p>
                     <v-container class="bg-white">

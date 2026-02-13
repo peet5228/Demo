@@ -2,7 +2,8 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <v-form v-if="user.status_commit === 'n'" @submit.prevent="saveScore">
+                <v-alert type="info" v-if="user.status_eva === 1">ผู้รับการประเมินยังไม่ได้ประเมินตนเอง</v-alert>
+                <v-form v-else-if="user.status_commit === 'n'" @submit.prevent="saveScore">
                     <h1 class="text-h5 font-weight-bold">แบบประเมินตนเอง</h1>
                     <v-card class="pa-2 mt-2">
                         <p>ชื่อ - นามสกุล : {{ user.first_name }} {{ user.last_name }}</p>
