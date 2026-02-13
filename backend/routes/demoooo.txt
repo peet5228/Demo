@@ -6,7 +6,7 @@ const {verifyToken , requireRole} = require('../../middleware/authMiddleware')
 
 // ========= DEMO ====
 // API สำหรับ Get ข้อมูล
-// router.get(`/`,verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
+// router.get('/',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
 //     try{
 //         const [rows] = await db.query(``)
 //         res.json(row)
@@ -17,4 +17,5 @@ const {verifyToken , requireRole} = require('../../middleware/authMiddleware')
 //     }
 // })
 // =============== DEMO =====
+
 module.exports = router
