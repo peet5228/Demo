@@ -84,6 +84,8 @@ const saveMember = async () => {
         formData.append('file',file.value)
         await axios.post(`${staff}/doc`,formData,{headers: {Authorization: `Bearer ${token}`}})
         alert('ทำรายการสำเร็จ')
+        file.value = null
+        name_doc.value = ''
         await fetch()
     }catch(err){
         console.error('Error!',err)
