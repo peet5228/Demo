@@ -22,7 +22,8 @@ const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
 // Staff Endpoint API
-
+const member = require('./routes/Staff/member')
+app.use('/api/Staff/member',member)
 
 // Committee Endpoint API
 
