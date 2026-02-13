@@ -55,6 +55,9 @@ app.use('/api/Staff/score_member',scoreE)
 const scoreC = require('./routes/Staff/score_commit')
 app.use('/api/Staff/score_commit',scoreC)
 
+const his = require('./routes/Staff/his')
+app.use('/api/Staff/his',his)
+
 // Committee Endpoint API ============
 const check_confirm = require('./routes/Commit/check_confirm')
 app.use('/api/Commit/check_confirm',check_confirm)

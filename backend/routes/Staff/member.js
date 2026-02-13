@@ -79,6 +79,7 @@ router.put('/:id_member',verifyToken,requireRole('ฝ่ายบุคลาก
         }else{
             await db.query(`update tb_member set first_name=?,last_name=?,email=?,username=?,role=? where id_member='${id_member}'`,[first_name,last_name,email,username,role])
         }
+        await db.query(`insert into tb_his (id_member,detail,date) values (?,?,CURDATE())`,[id_member,'edit'])
         // res.json(rows)
         res.json({message:'Update Success!'})
     }catch(err){

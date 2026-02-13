@@ -55,6 +55,7 @@ const roles = [
     {title:'สถานะการประเมินของกรรมการ',to:'/Staff/statusCommit',role:'ฝ่ายบุคลากร'},
     {title:'เอกสารหรือคู่มือสำหรับการประเมิน',to:'/Staff/Document',role:'ฝ่ายบุคลากร'},
     {title:'รายงาน',to:'/Staff/Report',role:'ฝ่ายบุคลากร'},
+    {title:'ประวัติการจัดการข้อมูล',to:'/Staff/His',role:'ฝ่ายบุคลากร'},
 
     //commit
     {title:'รายชื่อผู้รับการประเมิน',to:'/Committee/',role:'กรรมการประเมิน'},
