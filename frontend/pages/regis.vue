@@ -50,6 +50,10 @@
 import axios from 'axios'
 import {api} from '../API/base'
 
+definePageMeta({
+    layout:false
+})
+
 const form = ref({
     first_name:'',
     last_name:'',
