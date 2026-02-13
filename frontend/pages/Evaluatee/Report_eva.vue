@@ -2,7 +2,7 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <v-form v-if="user.status_eva === 2 || user.status_eva === 3">
+                <v-form v-if="user.status_eva === 3">
                     <h1 class="text-h5 font-weight-bold text-center">รายงานผลการประเมิน</h1>
                     <v-card class="pa-2 mt-2">
                         <p>ชื่อ - นามสกุล : {{ user.first_name }} {{ user.last_name }}</p>
@@ -36,15 +36,17 @@
                     </div>
                     <div class=" mt-4">
                         <v-card class="pa-2">
-                            <label for="">ข้อเสนอแนะของกรรมการ</label>
                             <v-row>
-                                <v-col cols="4" v-for="commit in commits" :key="commit.id_commit">
-                                    <img :src="`http://localhost:3001/uploads/signature/${commit.signature}`" alt="">
+                                <v-col cols="4" class="text-center" v-for="commit in commits" :key="commit.id_commit">
+                                    <img :src="`http://localhost:3001/uploads/signature/${commit.signature}`" :alt="`รอ${commit.level_commit}ประเมิน`" width="20%"> <br>
+                                    ( {{ commit.first_name }} {{ commit.last_name }} ) <br>
+                                    {{ commit.level_commit }}
                                 </v-col>
                             </v-row>
                         </v-card>
                     </div>
                 </v-form>
+                <v-alert type="info" v-else-if="user.status_eva === 2">รอกรรมดำเนินการประเมิน</v-alert>
                 <v-alert type="info" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมิน</v-alert>
                 <v-alert type="warning" v-else>ยังไม่มีแบบประเมิน</v-alert>
             </v-col>
