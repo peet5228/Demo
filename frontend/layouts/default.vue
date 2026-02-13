@@ -60,6 +60,7 @@ const roles = [
     {title:'รายชื่อผู้รับการประเมิน',to:'/Committee/',role:'กรรมการประเมิน'},
     {title:'ดำเนินการประเมิน',to:'/Committee/Show_eva',role:'กรรมการประเมิน'},
     {title:'ตรวจสอบผลและยืนยันผล',to:'/Committee/Check_confirm',role:'กรรมการประเมิน'},
+    {title:'คู่มือประกอบการประเมิน',to:'/Committee/Doc',role:'กรรมการประเมิน'},
 
     //eva
     {title:'หน้าหลัก',to:'/Evaluatee/',role:'ผู้รับการประเมินผล'},
@@ -67,6 +68,7 @@ const roles = [
     {title:'แบบประเมินตนเอง',to:'/Evaluatee/Selfeva',role:'ผู้รับการประเมินผล'},
     {title:'ตรวจสอบผลการประเมิน',to:'/Evaluatee/Check_score',role:'ผู้รับการประเมินผล'},
     {title:'รายงานผลการประเมิน',to:'/Evaluatee/Report_eva',role:'ผู้รับการประเมินผล'},
+    {title:'คู่มือประกอบการประเมิน',to:'/Evaluatee/Doc',role:'ผู้รับการประเมินผล'},
 ]
 const navitem = computed(() => roles.filter((item) => item.role.includes(user.value.role)))
 
@@ -94,5 +96,13 @@ onMounted(fetchUser)
 </script>
 
 <style scoped>
-
+@media print{
+    .v-app-bar,.v-btn.no-p{
+        display: none !important;
+        margin: 0 !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+}
 </style>

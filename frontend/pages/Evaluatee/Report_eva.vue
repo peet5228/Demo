@@ -31,7 +31,7 @@
                             </v-table>
                         </v-col>
                     </v-row>
-                    <div class="text-center mt-4">
+                    <div class=" mt-4">
                         <v-card color="success" class="pa-2 text-end">คะแนนนรวมสุทธิ : {{ ((user.total_commit)/3).toFixed(2) }} คะแนน</v-card>
                     </div>
                     <div class=" mt-4">
@@ -44,6 +44,8 @@
                                 </v-col>
                             </v-row>
                         </v-card>
+                    </div><div class="text-center mt-4">
+                        <v-btn color="warning" class="no-p" @click="printDoc">พิมพ์</v-btn>
                     </div>
                 </v-form>
                 <v-alert type="info" v-else-if="user.status_eva === 2">รอกรรมดำเนินการประเมิน</v-alert>
@@ -62,6 +64,10 @@ const user = ref<any>({})
 const topics = ref<any>([])
 const scores = ref<any>([])
 const commits = ref<any>([])
+
+const printDoc = () =>{
+    window.print()
+}
 
 const fetchUser = async () =>{
     const token = localStorage.getItem('token')
@@ -106,5 +112,13 @@ onMounted(async () =>{
 </script>
 
 <style scoped>
-
+@media print{
+    .v-app-bar,.v-btn.no-p{
+        display: none !important;
+        margin: 0 !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+}
 </style>

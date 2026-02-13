@@ -49,7 +49,7 @@ router.delete('/:id_eva',verifyToken,requireRole('กรรมการประ
         const [[d]] = await db.query(`select signature from tb_commit where id_eva=? and id_member=?`,[id_eva,id_member])
         res.status(201).json({message:'Upload Success'})
         const fp = path.join(uploadDir,d.signature)
-        if(fs.existsSync.fp){
+        if(fs.existsSync(fp)){
             fs.unlinkSync(fp)
         }
         await db.query(`update tb_commit set signature=? where id_eva=? and id_member=?`,[null,id_eva,id_member])
