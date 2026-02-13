@@ -9,6 +9,7 @@
       <v-btn icon="mdi-logout" @click="logout" variant="text" />&nbsp;&nbsp;
     </v-app-bar>
     
+    <ClientOnly>
     <v-navigation-drawer v-model="drawer" width="260" app color="#404040" :temporary="isMobile" :permanent="!isMobile">
       <v-list density="comfortable" nav>
         <v-list-item v-for="item in navitem" :key="item.title" :to="item.to">
@@ -18,6 +19,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    </ClientOnly>
 
     <v-main>
       <v-container fluid class="py-2">
@@ -62,10 +64,12 @@ const fetchUser = async () =>{
         return await navigateTo('/',{replace:true})
     }
     try{
-        const res = await axios.get(`${eva}/profile`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${api}/profile`,{headers:{Authorization:`Bearer ${token}`}})
         user.value = res.data
     }catch(err){
         console.error('Error Get Profile!',err)
+        localStorage.removeItem('token')
+        await navigateTo('/',{replace:true}) 
     }
 }
 

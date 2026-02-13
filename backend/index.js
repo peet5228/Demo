@@ -12,7 +12,7 @@ app.use(cors ({
 
 app.use(express.json())
 app.use(fileupload())
-app.use('/uploads',export.static(path.join(__dirname,'uploads')))
+app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 
 // Public Endpoint API
 const auth = require('./routes/auth')
