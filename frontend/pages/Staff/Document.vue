@@ -11,7 +11,7 @@
                                     <v-text-field label="ชื่อเอกสาร" v-model="name_doc"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="12">
-                                    <v-file-input label="ไฟล์" v-model="file" accept=".png,.PDF" />
+                                    <v-file-input label="ไฟล์" v-model="file" accept=".pdf,.PDF" />
                                      <p class="text-error font-weight-bold">*** รองรับเฉพาะไฟล์ PDF ***</p>
                                 </v-col>
                                
