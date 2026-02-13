@@ -53,7 +53,7 @@ const result = ref ([])
 
 const fetch = async () => {
     try{
-        const res = await axios.get(`${staff}/eva`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/eva/all`,{headers:{Authorization:`Bearer ${token}`}})
         result.value = res.data
     }catch(err){
         console.error("Error Fetching",err)

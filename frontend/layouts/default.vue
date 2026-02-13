@@ -52,6 +52,7 @@ const roles = [
     {title:'ผลสรุปการประเมินของผู้รับการประเมินผล',to:'/Staff/Score_evaList',role:'ฝ่ายบุคลากร'},
     {title:'ผลสรุปการประเมินของกรรมการประเมิน',to:'/Staff/Score_commitList',role:'ฝ่ายบุคลากร'},
     {title:'สถานะการประเมินของผู้รับการประเมินผล',to:'/Staff/statusEva',role:'ฝ่ายบุคลากร'},
+    {title:'สถานะการประเมินของกรรมการ',to:'/Staff/statusCommit',role:'ฝ่ายบุคลากร'},
     {title:'เอกสารหรือคู่มือสำหรับการประเมิน',to:'/Staff/Document',role:'ฝ่ายบุคลากร'},
 
     //commit
