@@ -2,7 +2,7 @@
     <v-container fluid class="py-10">
                 <v-card>
                     <v-sheet class="pa-4 text-center" color="">
-                        <h1 class="text-h5 font-weight-bold">จัดการผู้รับการประเมินผล</h1>
+                        <h1 class="text-h5 font-weight-bold">จัดการกรรมการประเมิน</h1>
                     </v-sheet>
                     <v-card-text>
                         <v-form @submit.prevent="saveMember">
@@ -24,7 +24,7 @@
                                     :type="showPw ? 'text' : 'password'" :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'" @click:append-inner="showPw = !showPw"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-select label="เลือกประะเภทสมาชิก" v-model="form.role" :items="['ผู้รับการประเมินผล']" :error-messages="error.role"></v-select>
+                                    <v-select label="เลือกประะเภทสมาชิก" v-model="form.role" :items="['กรรมการประเมิน']" :error-messages="error.role"></v-select>
                                 </v-col>
                                <v-row>
                                 <v-col  cols="12" md="6" >
@@ -122,7 +122,7 @@ function validateForm(){
 
 const fetch = async () => {
     try{
-        const res = await axios.get(`${staff}/member/eva`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/member/commit`,{headers:{Authorization:`Bearer ${token}`}})
         result.value = res.data
     }catch(err){
         console.error("Error Fetching",err)

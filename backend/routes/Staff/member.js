@@ -69,7 +69,7 @@ router.get(`/:id_member`,verifyToken,requireRole('ฝ่ายบุคลาก
 })
 
 // API สำหรับ Update ข้อมูล
-router.put('/:id_memberr',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
+router.put('/:id_member',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
         const {id_member} = req.params
         const {first_name,last_name,email,username,password,role} = req.body

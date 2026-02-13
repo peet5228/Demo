@@ -14,22 +14,38 @@ app.use(express.json())
 app.use(fileupload())
 app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 
-// Public Endpoint API
+// Public Endpoint API ============
 const auth = require('./routes/auth')
 app.use('/api/auth',auth)
 
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
-// Staff Endpoint API
+// Staff Endpoint API ============
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
 
-// Committee Endpoint API
+const topic = require('./routes/Staff/topic')
+app.use('/api/Staff/topic',topic)
+
+const indicate = require('./routes/Staff/indicate')
+app.use('/api/Staff/indicate',indicate)
+
+const round_eva = require('./routes/Staff/round_eva')
+app.use('/api/Staff/round_eva',round_eva)
+
+const eva = require('./routes/Staff/eva')
+app.use('/api/Staff/eva',eva)
+
+// Committee Endpoint API ============
 
 
-// Evalutee Endpoint API
+// Evalutee Endpoint API ============
+const edit_eva = require('./routes/Eva/edit_eva')
+app.use('/api/Eva/edit_eva',edit_eva)
 
+const selfeva = require('./routes/Eva/selfeva')
+app.use('/api/Eva/selfeva',selfeva)
 
 app.use((req,res) => res.status(404).json({message:'404 : Invalid Route55'}))
 app.listen(3001 , () => console.log("Server Running On Port 3001"))

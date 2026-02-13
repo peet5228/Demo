@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Feb 13, 2026 at 02:47 AM
+-- Generation Time: Feb 13, 2026 at 03:14 AM
 -- Server version: 8.0.45
 -- PHP Version: 8.3.30
 
@@ -24,27 +24,64 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb _indicate`
+-- Table structure for table `tb_commit`
 --
 
-CREATE TABLE `tb _indicate` (
-  `id_indicate` int NOT NULL,
-  `id_topic` int NOT NULL,
-  `name_indicate` varchar(100) NOT NULL,
-  `detail_indicate` text NOT NULL,
-  `point_indicate` int NOT NULL,
-  `check_indicate` varchar(1) NOT NULL
+CREATE TABLE `tb_commit` (
+  `id_commit` int NOT NULL,
+  `id_member` int NOT NULL,
+  `id_eva` int NOT NULL,
+  `status_commit` varchar(1) NOT NULL,
+  `level_commit` varchar(100) NOT NULL,
+  `detail_commit` text,
+  `signature` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_topic`
+-- Table structure for table `tb_eva`
 --
 
-CREATE TABLE `tb_topic` (
-  `id_topic` int NOT NULL,
-  `name_topic` varchar(100) NOT NULL
+CREATE TABLE `tb_eva` (
+  `id_eva` int NOT NULL,
+  `id_member` int NOT NULL,
+  `id_sys` int NOT NULL,
+  `status_eva` int NOT NULL,
+  `day_eva` date NOT NULL,
+  `total_eva` double(10,2) DEFAULT NULL,
+  `total_commit` double(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_evadetail`
+--
+
+CREATE TABLE `tb_evadetail` (
+  `id_eva` int NOT NULL,
+  `id_indicate` int NOT NULL,
+  `status_eva` int NOT NULL,
+  `score_member` int DEFAULT NULL,
+  `score_commit` int DEFAULT NULL,
+  `detail_eva` text,
+  `file_eva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_system`
+--
+
+CREATE TABLE `tb_system` (
+  `id_sys` int NOT NULL,
+  `day_open` date NOT NULL,
+  `day_out` date NOT NULL,
+  `round_sys` varchar(2) NOT NULL,
+  `year_sys` varchar(4) NOT NULL,
+  `status_sys` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -52,32 +89,44 @@ CREATE TABLE `tb_topic` (
 --
 
 --
--- Indexes for table `tb _indicate`
+-- Indexes for table `tb_commit`
 --
-ALTER TABLE `tb _indicate`
-  ADD PRIMARY KEY (`id_indicate`);
+ALTER TABLE `tb_commit`
+  ADD PRIMARY KEY (`id_commit`);
 
 --
--- Indexes for table `tb_topic`
+-- Indexes for table `tb_eva`
 --
-ALTER TABLE `tb_topic`
-  ADD PRIMARY KEY (`id_topic`);
+ALTER TABLE `tb_eva`
+  ADD PRIMARY KEY (`id_eva`);
+
+--
+-- Indexes for table `tb_system`
+--
+ALTER TABLE `tb_system`
+  ADD PRIMARY KEY (`id_sys`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tb _indicate`
+-- AUTO_INCREMENT for table `tb_commit`
 --
-ALTER TABLE `tb _indicate`
-  MODIFY `id_indicate` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tb_commit`
+  MODIFY `id_commit` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tb_topic`
+-- AUTO_INCREMENT for table `tb_eva`
 --
-ALTER TABLE `tb_topic`
-  MODIFY `id_topic` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tb_eva`
+  MODIFY `id_eva` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_system`
+--
+ALTER TABLE `tb_system`
+  MODIFY `id_sys` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
