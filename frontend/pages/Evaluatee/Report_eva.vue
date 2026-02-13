@@ -17,9 +17,6 @@
                                     <th class="bg-grey border pa-1" style="width: 10%;">รายละเอียดตัวชี้วัด</th>
                                     <th class="bg-grey border pa-1" style="width: 10%;">น้ำหนักคะแนน</th>
                                     <th class="bg-grey border pa-1" style="width: 10%;">คะแนนเต็ม</th>
-                                    <th class="bg-grey border pa-1" style="width: 10%;">ประธาน</th>
-                                    <th class="bg-grey border pa-1" style="width: 10%;">กรรมการ</th>
-                                    <th class="bg-grey border pa-1" style="width: 10%;">เลขา</th>
                                     <th class="bg-grey border pa-1" style="width: 10%;">คะแนนที่ได้</th>
                                 </tr>
                                 <tr v-for="indicate in topic.indicates" :key="indicate.id_indicate">
@@ -27,9 +24,6 @@
                                     <td class="border pa-1 text-center" style="width: 10%;">{{ indicate.detail_indicate }}</td>
                                     <td class="border pa-1 text-center" style="width: 10%;">{{ indicate.point_indicate }}</td>
                                     <td class="border pa-1 text-center" style="width: 10%;">{{ indicate.point_indicate*4 }}</td>
-                                    <td class="border pa-1 text-center" style="width: 10%;">{{ scores[indicate.id_indicate]?.a ?? 'รอประธานประเมิน' }}</td>
-                                    <td class="border pa-1 text-center" style="width: 10%;">{{ scores[indicate.id_indicate]?.b ?? 'รอกรรมการประเมิน' }}</td>
-                                    <td class="border pa-1 text-center" style="width: 10%;">{{ scores[indicate.id_indicate]?.c ?? 'รอเลขาประเมิน' }}</td>
                                     <td class="border pa-1 text-center" style="width: 10%;">
                                         {{ (((scores[indicate.id_indicate]?.a ?? 0)+(scores[indicate.id_indicate]?.b ?? 0)+(scores[indicate.id_indicate]?.c ?? 0))/3).toFixed(2) }}
                                     </td>
@@ -44,8 +38,8 @@
                         <v-card class="pa-2">
                             <label for="">ข้อเสนอแนะของกรรมการ</label>
                             <v-row>
-                                <v-col cols="12" v-for="(commit,c) in commits" :key="commit.id_commit">
-                                    {{ c+1 }}.{{ commit.level_commit }} : {{ commit.detail_commit || 'รอการประเมิน' }}
+                                <v-col cols="4" v-for="commit in commits" :key="commit.id_commit">
+                                    <img :src="`http://localhost:3001/uploads/signature/${commit.signature}`" alt="">
                                 </v-col>
                             </v-row>
                         </v-card>
