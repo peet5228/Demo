@@ -37,6 +37,9 @@
                             </v-row>
                         </v-form>
                         <br><br><br>
+                        <v-row>
+                            <v-text-field v-model="seach" label="ค้นหา" class="pa-4" prepend-inner-icon="mdi-magnify"></v-text-field>
+                        </v-row>
                         <v-table>
                             <thead>
                                 <tr>
@@ -48,7 +51,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(items,index) in result" :key="items.id_member">
+                                <tr v-for="(items,index) in filtreredResult" :key="items.id_member">
                                     <td class="text-center border">{{ index+1 }}</td>
                                     <td class="text-center border">{{ items.first_name }} {{ items.last_name }}<br><span class="opacity-70">{{ items.role }}</span></td>
                                     <td class="text-center border">{{ items.email }}</td>
@@ -58,7 +61,7 @@
                                         <v-btn color="error" class="text-white" size="small" @click="del(items.id_member)">ลบ</v-btn>
                                     </td>
                                 </tr>
-                                <tr v-if="result.length === 0">
+                                <tr v-if="filtreredResult.length === 0">
                                     <td class="text-center border" colspan="10">ไม่พบข้อมูล</td>
                                 </tr>
                             </tbody>
@@ -75,6 +78,20 @@ import {api,staff} from '../../API/base'
 const token = process.client ? localStorage.getItem('token') : null
 
 const result = ref ([])
+
+const seach = ref('')
+const filtreredResult = computed(()=>{
+    if(!seach.value)return result.value
+    const s = seach.value.toLowerCase()
+    return result.value.filter((item:any)=>{
+        return (
+            item.first_name?.toLowerCase().includes(s) ||
+            item.last_name?.toLowerCase().includes(s) ||
+            item.username?.toLowerCase().includes(s) ||
+            item.email?.toLowerCase().includes(s)
+        )
+    })
+})
 
 const form = ref({
     id_member: null,
