@@ -1,18 +1,15 @@
 <template>
     <v-container fluid class="py-10">
                 <v-card>
-                    <v-sheet class="pa-4 text-center" color="">
-                        <h1 class="text-h5 font-weight-bold">เอกสารหรือคู่มือสำหรับการประเมิน</h1>
+                    <v-sheet class="pa-4 " color="">
+                        <h1 class="text-h5 font-weight-bold">ยืนยันผลการประเมิน</h1>
                     </v-sheet>
                     <v-card-text>
-                        <v-form @submit.prevent="saveMember">
+                        <v-form v-if="!result.signature" @submit.prevent="saveMember">
                             <v-row>
                                 <v-col cols="12" md="12">
-                                    <v-text-field label="ชื่อเอกสาร" v-model="name_doc"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="12">
-                                    <v-file-input label="ไฟล์" v-model="file" accept=".png,.PDF" />
-                                     <p class="text-error font-weight-bold">*** รองรับเฉพาะไฟล์ PDF ***</p>
+                                    <v-file-input label="ไฟล์" v-model="file" accept=".pnt,.jpg" />
+                                     <p class="text-error font-weight-bold ">*** รองรับเฉพาะไฟล์ .pnt และ.jpg  เท่านั้น***</p>
                                 </v-col>
                                
                                <v-row>
@@ -25,27 +22,21 @@
                                </v-row>
                             </v-row>
                         </v-form>
-                        <br><br><br>
-                        <v-table>
+                        <v-table v-else>
                             <thead>
                                 <tr>
                                     <th class="text-center border">ลำดับ</th>
-                                    <th class="text-center border">ชื่อเอกสาร</th>
-                                    <th class="text-center border">วันที่เพิ่ม</th>
                                     <th class="text-center border">ไฟล์</th>
                                     <th class="text-center border">จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(items,index) in result" :key="items.id_doc">
-                                    <td class="text-center border">{{ index+1 }}</td>
-                                    <td class="text-center border">{{ items.name_doc }}</td>
-                                    <td class="text-center border">{{ items.day_doc }}</td>
+                                <tr>
+                                    <td class="text-center border">{{ 1 }}</td>
+                                    <td class="text-center border">{{ result.signature }}</td>
                                     <td class="text-center border">
-                                        <v-btn color="warning" size="small" prepend-icon="mdi-eye" @click="views(items.file)">เปิดดู</v-btn>
-                                    </td>
-                                    <td class="text-center border">
-                                        <v-btn color="error" class="text-white" size="small" @click="del(items.id_doc)">ลบ</v-btn>
+                                        <v-btn color="warning" size="small" prepend-icon="mdi-eye" @click="views(result.signature)">เปิดดู</v-btn>&nbsp;&nbsp;
+                                        <v-btn color="error" class="text-white" size="small" @click="del(id_eva)">ลบ</v-btn>
                                     </td>
                                 </tr>
                                 <tr v-if="result.length === 0">
@@ -60,40 +51,42 @@
 
 <script setup lang="ts">
 import axios from 'axios'
-import {api,staff} from '../../API/base'
+import {api,commit} from '../../API/base'
 
 const token = process.client ? localStorage.getItem('token') : null
 
 const result = ref ([])
 const name_doc = ref('')
 const file = ref<File | null>(null)
+const id_eva = useRoute().params.id_eva
 
 const fetch = async () => {
     try{
-        const res = await axios.get(`${staff}/doc`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${commit}/signature/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         result.value = res.data
     }catch(err){
         console.error("Error Fetching",err)
     }
 }
 const saveMember = async () => {
-    if(!name_doc.value || !file.value ) return alert('กรุณากรอกชื่อเอกสารและแนบไฟล์')
+    if(!file.value ) return alert('กรุณาแนบไฟล์ก่อนบันทึก')
     try{
         const formData = new FormData()
-        formData.append('name_doc',name_doc.value)
         formData.append('file',file.value)
-        await axios.post(`${staff}/doc`,formData,{headers: {Authorization: `Bearer ${token}`}})
+        await axios.post(`${commit}/signature/${id_eva}`,formData,{headers: {Authorization: `Bearer ${token}`}})
         alert('ทำรายการสำเร็จ')
+        file.value = null
         await fetch()
     }catch(err){
         console.error('Error!',err)
     }
 }
 
-const del = async (id_doc:number) => {
+const del = async (id_eva:number) => {
     try{
         if(!confirm('ต้องการลบใช่หรือไม่')) return
-        await axios.delete(`${staff}/doc/${id_doc}`,{headers:{Authorization: `Bearer ${token}`}})
+        await axios.delete(`${commit}/signature/${id_eva}`,{headers:{Authorization: `Bearer ${token}`}})
+        alert('ลบสำเร็จ')
         await fetch()
     }catch(err){
         console.error("Error Delete",err)
@@ -101,7 +94,7 @@ const del = async (id_doc:number) => {
 }
 
 const views = (filename:string) =>   {
-    const url = new URL(`/uploads/document/${filename}`,api).href
+    const url = new URL(`/uploads/signature/${filename}`,commit).href
     window.open(url,'_blank')
 }
 

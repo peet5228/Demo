@@ -14,7 +14,7 @@
                                     <th class="text-center border">วันที่ออกแบบประเมิน</th>
                                     <th class="text-center border">รอบการประเมิน</th>
                                     <th class="text-center border">ผลการประเมิน</th>
-                                    <th class="text-center border">ประเมินผล</th>
+                                    <th class="text-center border">ยืนยันผลประเมิน</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@ const fetch = async () => {
 }
 
 const go = (id_eva:number) => {
-    navigateTo({path:`/Committee/Save_Score${id_eva}`})
+    navigateTo({path:`/Committee/Signature${id_eva}`})
 }
 
 const check = (id_eva:number) => {

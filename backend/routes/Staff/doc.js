@@ -39,7 +39,7 @@ router.post('/',verifyToken,requireRole('ฝ่ายบุคลากร'),asy
         const {name_doc} = req.body
         const file = req.files?.file
         const filename = Date.now() + path.extname(file.name)
-        await file.mv(uploadDir,filename)
+        await file.mv(path.join(uploadDir,filename))
         await db.query(`insert into tb_doc (name_doc,day_doc,file) values (?,CURDATE(),?)`,[name_doc,filename])
         res.status(201).json({message:'Upload Success'})
     }catch(err){
@@ -58,7 +58,7 @@ router.delete('/:id_doc',verifyToken,requireRole('ฝ่ายบุคลาก
             fs.unlinkSync(fp)
         }
         await db.query(`delete from tb_doc where id_doc='${id_doc}'`)
-        res.json({rows,message:'Delete Success!'})
+        res.json({message:'Delete Success!'})
     }catch(err){
         console.error("Error Delete",err)
         res.status(500).json({message:'Error Delete'})

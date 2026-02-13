@@ -62,6 +62,9 @@ app.use('/api/Commit/score_commit',score_commit2)
 const save_score = require('./routes/Commit/save_score')
 app.use('/api/Commit/save_score',save_score)
 
+const signature = require('./routes/Commit/signature')
+app.use('/api/Commit/signature',signature)
+
 // Evalutee Endpoint API ============
 const edit_eva = require('./routes/Eva/edit_eva')
 app.use('/api/Eva/edit_eva',edit_eva)
