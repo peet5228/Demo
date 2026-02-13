@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="py-10">
+    <v-container fluid class="py-10" ref="r">
                 <v-card>
                     <v-sheet class="pa-4 text-center" color="">
                         <h1 class="text-h5 font-weight-bold">รายงานผู้รับการประเมิน</h1>
@@ -32,6 +32,8 @@
                                 </tr>
                             </tbody>
                         </v-table>
+                        <br>
+                         <center><v-btn color="warning" prepend-icon="mdi-printer" @click="print()" class="noP">พิมพ์</v-btn></center>
                     </v-card-text>
                 </v-card>
    </v-container>
@@ -40,10 +42,12 @@
 <script setup lang="ts">
 import axios from 'axios'
 import {api,staff} from '../../API/base'
+// import {pdf} from "../../API/pdf"
 
 const token = process.client ? localStorage.getItem('token') : null
 
 const result = ref ([])
+const r = ref(null)
 
 const seach = ref('')
 const filtreredResult = computed(()=>{
@@ -145,9 +149,17 @@ const del = async (id_member:number) => {
     }
 }
 
+const print = () => {
+    window.print()
+}
+
 onMounted(fetch)
 </script>
 
 <style scoped>
-
+@media print{
+    .v-btn,.noP{
+        display: none;
+    }
+}
 </style>
