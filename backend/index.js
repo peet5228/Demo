@@ -11,6 +11,21 @@ app.use(cors ({
 }))
 
 app.use(express.json())
+app.use(fileupload())
+app.use('/uploads',export.static(path.join(__dirname,'uploads')))
+
+// Public Endpoint API
+const auth = require('./routes/auth')
+app.use('/api/auth',auth)
+
+// Staff Endpoint API
+
+
+// Committee Endpoint API
+
+
+// Evalutee Endpoint API
+
 
 app.use((req,res) => res.status(404).json({message:'404 : Invalid Route55'}))
 app.listen(3001 , () => console.log("Server Running On Port 3001"))
