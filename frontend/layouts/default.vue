@@ -72,7 +72,7 @@ const fetchUser = async () =>{
         await navigateTo('/',{replace:true}) 
     }
 }
-
+onMounted(fetchUser)
 </script>
 
 <style scoped>
