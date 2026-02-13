@@ -30,6 +30,10 @@ router.post('/:id_eva',verifyToken,requireRole('กรรมการประ�
         const filename = Date.now() + path.extname(file.name)
         await file.mv(path.join(uploadDir,filename))
         await db.query(`update tb_commit set signature=? where id_eva=? and id_member=?`,[filename,id_eva,id_member])
+        const [SumCommit] = await db.query(`select * from tb_commit where status_commit=? and signature!='${null}' and id_eva=?`,['y',id_eva])
+        if(SumCommit.length === 3){
+            await db.query(`update tb_eva set status_eva=? where id_eva=?`,[3,id_eva])
+        }
         res.status(201).json({message:'Upload Success'})
     }catch(err){
         console.error("Error Upload",err)

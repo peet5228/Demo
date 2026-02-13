@@ -8,7 +8,7 @@
                         <v-form v-if="!result.signature" @submit.prevent="saveMember">
                             <v-row>
                                 <v-col cols="12" md="12">
-                                    <v-file-input label="ไฟล์" v-model="file" accept=".pnt,.jpg" />
+                                    <v-file-input label="ไฟล์" v-model="file" accept=".png,.jpg" />
                                      <p class="text-error font-weight-bold ">*** รองรับเฉพาะไฟล์ .pnt และ.jpg  เท่านั้น***</p>
                                 </v-col>
                                

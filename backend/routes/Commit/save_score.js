@@ -64,10 +64,10 @@ router.post('/save/:id_eva',verifyToken,requireRole('กรรมการปร
         )
         await db.query(`update tb_eva set total_commit=? where id_eva=?`,[sumRow.total,id_eva])
         await db.query(`update tb_commit set detail_commit=?,status_commit=? where id_eva=? and id_member=?`,[detail_commit,'y',id_eva,id_member])
-        const [SumCommit] = await db.query(`select * from tb_commit where status_commit=? and id_eva=?`,['y',id_eva])
-        if(SumCommit.length === 3){
-            await db.query(`update tb_eva set status_eva=? where id_eva=?`,[3,id_eva])
-        }
+        // const [SumCommit] = await db.query(`select * from tb_commit where status_commit=? and id_eva=?`,['y',id_eva])
+        // if(SumCommit.length === 3){
+        //     await db.query(`update tb_eva set status_eva=? where id_eva=?`,[3,id_eva])
+        // }
         res.json({message:'POST Score Success'})
     }catch(err){
         console.error("Error POST Score",err)
