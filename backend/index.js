@@ -12,5 +12,5 @@ app.use(cors ({
 
 app.use(express.json())
 
-app.use((req,res) => res.status(404).json({message:'404 : Invalid Route'}))
+app.use((req,res) => res.status(404).json({message:'404 : Invalid Route55'}))
 app.listen(3001 , () => console.log("Server Running On Port 3001"))
