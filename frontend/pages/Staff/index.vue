@@ -17,7 +17,7 @@
                             <v-col cols="12" md="4" v-for="b in box2" :key="b">
                                 <v-card elevation="3" class="pa-4" rounded="lg">
                                     <div class="text-h5 text-center">{{ b.title }}</div>
-                                    <div class="text-h5 text-center">{{ b.value }} &nbsp;คน</div>
+                                    <div class="text-h5 text-center">{{ b.value }} &nbsp;</div>
                                 </v-card>
                             </v-col>
                         </v-row>
