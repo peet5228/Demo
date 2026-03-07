@@ -4,6 +4,8 @@ const router = express.Router()
 const bc = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
+const path = require('path')
+const uploadDir = path.join(__dirname,'../uploads/pic_user')
 
 // Login API
 router.post('/login',async (req,res) => {
@@ -60,9 +62,12 @@ router.post('/login',async (req,res) => {
 // Register API
 router.post('/regis',async (req,res) => {
     try{
-        const {first_name,last_name,email,username,password,role} = req.body
-        const hash = await bc.hash(password,10)
-        const [rows] = await db.query(`insert into tb_member (first_name,last_name,email,username,password,role) values (?,?,?,?,?,?)`,[first_name,last_name,email,username,hash,role])
+        const pic_user = req.files?.pic_user
+        const form = JSON.parse(req.body.form)
+        const filename = Date.now() + path.extname(pic_user.name)
+        await pic_user.mv(path.join(uploadDir,filename))
+        const hash = await bc.hash(form.password,10)
+        const [rows] = await db.query(`insert into tb_member (first_name,last_name,email,username,password,role,pic_user) values (?,?,?,?,?,?,?)`,[form.first_name,form.last_name,form.email,form.username,hash,form.role,filename])
         res.json({rows,message:'Resgister Success'})
     }catch(err){
         console.error("Error Regis",err)

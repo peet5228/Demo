@@ -33,6 +33,10 @@
                                 <v-col cols="12">
                                     <v-select label="เลือกประะเภทสมาชิก" v-model="form.role" :items="['กรรมการประเมิน','ผู้รับการประเมินผล']" :error-messages="error.role"></v-select>
                                 </v-col>
+                                <v-col cols="12">
+                                    <v-file-input label="รูปภาพประจำตัว" v-model="pic_user" accept=".png,.jpg" :error-messages="error.pic_user"
+                                    hint="รองรับเฉพาะไฟล์ .png และ .jpg เท่านั้น" persistent-hint></v-file-input>
+                                </v-col>
                                 <v-col cols="12" class="text-center">
                                     <v-btn type="submit" color="#7d0c14">สมัคร</v-btn>&nbsp;&nbsp;<v-btn type="reset" color="#7d0c14">ยกเลิก</v-btn>
                                     <p class="text-sm mt-3">มีบัญชีอยู่แล้ว? <nuxt-link to="/"><u>เข้าสู่ระบบ</u></nuxt-link></p>
@@ -62,6 +66,7 @@ const form = ref({
     password:'',
     role:'',
 })
+const pic_user = ref<File | null>(null)
 const confirmPassword = ref('')
 const error = ref<Record<string,string>>({})
 const showPw = ref(false)
@@ -83,18 +88,23 @@ function validateForm(){
     if(!confirmPassword.value.trim())error.value.confirmPassword='กรุณายืนยันรหัสผ่าน'
     else if(confirmPassword.value.trim() != f.password.trim())error.value.confirmPassword='รหัสผ่านไม่ตรงกัน'
     if(!f.role.trim())error.value.role='กรุณาเลือกประเภทสมาชิก'
+    if(!pic_user.value)error.value.pic_user='กรุณาแนบรูปประจำตัว'
     return Object.keys(error.value).length === 0
 }
 const saveMember = async () =>{
     if(!validateForm())return
+    const formData = new FormData()
+    formData.append('pic_user',pic_user.value)
+    formData.append('form',JSON.stringify(form.value))
     try{
-        await axios.post(`${api}/auth/regis`,form.value)
+        await axios.post(`${api}/auth/regis`,formData)
         alert('สมัครสำเร็จ')
         navigateTo('/',{replace:true})
     }catch(err){
         console.error('Error POST Member!',err)
     }
 }
+
 </script>
 
 <style scoped>

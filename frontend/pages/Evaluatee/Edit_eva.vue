@@ -30,6 +30,11 @@
                                     :type="showPw2 ? 'text' : 'password'" :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'" @click:append-inner="showPw2 = !showPw2"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
+                                    <p class="text-center"><img :src="`http://localhost:3001/uploads/pic_user/${form.pic_user}`" alt="รูปภาพประจำตัว" width="10%"></p>
+                                    <v-file-input label="รูปภาพประจำตัว" v-model="pic_user" accept=".png,.jpg" :error-messages="error.pic_user"
+                                    hint="แนบรูปใหม่เมื่อจะเปลี่ยนและมีรองรับเฉพาะไฟล์ .png และ .jpg เท่านั้น" persistent-hint></v-file-input>
+                                </v-col>
+                                <v-col cols="12">
                                     <v-alert>{{ form.role }}</v-alert>
                                 </v-col>
                                 <v-col cols="12" class="text-center">
@@ -47,7 +52,6 @@
 <script setup lang="ts">
 import axios from 'axios'
 import {eva} from '../../API/base'
-
 const form = ref({
     first_name:'',
     last_name:'',
@@ -55,7 +59,9 @@ const form = ref({
     username:'',
     password:'',
     role:'',
+    pic_user:null, //สร้างมาเพื่อเก็บค่าไว้ดึงรูปมาแสดง
 })
+const pic_user = ref<File | null>(null)
 const confirmPassword = ref('')
 const error = ref<Record<string,string>>({})
 const showPw = ref(false)
@@ -83,8 +89,11 @@ function validateForm(){
 const saveMember = async () =>{
     const token = localStorage.getItem('token')
     if(!validateForm())return
+    const formData = new FormData()
+    formData.append('pic_user',pic_user.value)
+    formData.append('form',JSON.stringify(form.value))
     try{
-        await axios.put(`${eva}/edit_eva`,form.value,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.put(`${eva}/edit_eva`,formData,{headers:{Authorization:`Bearer ${token}`}})
         alert('แก้ไขสำเร็จ')
         localStorage.removeItem('token')
         navigateTo('/',{replace:true})

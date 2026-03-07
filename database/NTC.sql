@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Mar 07, 2026 at 05:36 AM
+-- Generation Time: Mar 07, 2026 at 04:01 PM
 -- Server version: 9.6.0
 -- PHP Version: 8.3.30
 
@@ -227,7 +227,21 @@ INSERT INTO `tb_log` (`id_log`, `username`, `ip_address`, `status`, `user_agent`
 (11, 'zeen', '::ffff:172.19.0.1', 'success', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-02 09:23:27'),
 (12, 'admin', '::ffff:172.19.0.1', 'success', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-04 14:42:45'),
 (13, 'admin', '::ffff:172.19.0.1', 'success', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-05 14:23:53'),
-(14, 'admin', '::ffff:172.19.0.1', 'success', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 05:30:11');
+(14, 'admin', '::ffff:172.19.0.1', 'success', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 05:30:11'),
+(15, 'neem', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 13:28:12'),
+(16, 'meet', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 13:28:28'),
+(17, 'seen', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 13:39:51'),
+(18, 'deen', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 13:40:13'),
+(19, 'admin', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 13:40:37'),
+(20, 'suchat', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:01:37'),
+(21, 'suchat', '::ffff:172.18.0.1', 'failed', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:50:49'),
+(22, 'suchat', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:52:59'),
+(23, 'suchat', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:54:45'),
+(24, 'meet', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:55:20'),
+(25, 'suchat', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:56:42'),
+(26, 'meet', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:57:00'),
+(27, 'meet', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:58:21'),
+(28, 'suchat', '::ffff:172.18.0.1', 'success', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', '2026-03-07 15:58:36');
 
 -- --------------------------------------------------------
 
@@ -242,25 +256,27 @@ CREATE TABLE `tb_member` (
   `email` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `role` enum('ฝ่ายบุคลากร','กรรมการประเมิน','ผู้รับการประเมินผล') NOT NULL
+  `role` enum('ฝ่ายบุคลากร','กรรมการประเมิน','ผู้รับการประเมินผล') NOT NULL,
+  `pic_user` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tb_member`
 --
 
-INSERT INTO `tb_member` (`id_member`, `first_name`, `last_name`, `email`, `username`, `password`, `role`) VALUES
-(2, 'seen', 'seen', 'seen@gmail.com', 'seen', '$2b$10$IPIUy/hNt7s8nVAieSrR1.IwQ37bc4baM2MgQQ3peJrRTYySggFMC', 'กรรมการประเมิน'),
-(3, 'deen', 'deen', 'deen@gmail.com', 'deen', '$2b$10$3wLi9HLC9nV8.jKEUU4IFuLdUohgYMuDqrktnsMZYbhqSqoydJ//i', 'กรรมการประเมิน'),
-(4, 'feen1', 'feen', 'feen@gmail.com', 'feen', '$2b$10$VStMS3Uw/NDebLK1Gi7iRulcO60ojwDAA4LWgtIRDsTkdPWXwwRRq', 'กรรมการประเมิน'),
-(5, 'Admin', '1', 'admin@gamil.com', 'admin', '$2b$10$fVgEnlUvihigQwqTapO0HOh6qjFtEIxS3aho2xVbJYf3TNKQC8i2K', 'ฝ่ายบุคลากร'),
-(6, 'admin', '2', 'admin2@gmail.com', 'admin2', '$2b$10$IfKZvM38X5mf4vT8bHirkeb9vJBIjZNeAqNuasqFUNYYdhcCDluiy', 'ฝ่ายบุคลากร'),
-(8, 'neem', 'neem', 'neem@gmail.com', 'neem', '$2b$10$EGJE1JJA/1TAERfz92JTUOsN1MXZN10jseKgaDtkhLTYgqVkth1Im', 'ผู้รับการประเมินผล'),
-(9, 'meet1', 'meet', 'meet@gmail.com', 'meet', '$2b$10$Foah9Dk9J3/c9IhgXoKfo.KRu3TfaZ9pSXgS1cD1IPgq5UTQuXUle', 'ผู้รับการประเมินผล'),
-(10, 'ceen', 'ceen', 'ceen@gmail.com', 'ceen', '$2b$10$t.Dj1izpgiMQHnDMKAXUquqiIlvDjCNRLnbVu8rMBJZDWhBPMhSQi', 'ผู้รับการประเมินผล'),
-(11, 'zeen1', 'zeen1', 'zeen@gmail.com', 'zeen', '$2b$10$rP7j7XqhIYsc/Tk3SBUc0eE9Hc3bFxhFttORaSkefvfkUcL7ZlmEe', 'ผู้รับการประเมินผล'),
-(12, 'geen', 'geen', 'geen@gmail.com', 'geen', '$2b$10$zEgLlThHOKyRjVVwGZnlXOOJp4n9nHhwjX9f3aiahBfIVlfG40YK6', 'กรรมการประเมิน'),
-(13, 'jeen', 'jeen', 'jeen@gmail.com', 'jeen', '$2b$10$mDiXozSsLU2yR127ngYegO6oLMEqfepXqnGLltZM3xRes99.OeSKG', 'กรรมการประเมิน');
+INSERT INTO `tb_member` (`id_member`, `first_name`, `last_name`, `email`, `username`, `password`, `role`, `pic_user`) VALUES
+(2, 'seen', 'seen', 'seen@gmail.com', 'seen', '$2b$10$IPIUy/hNt7s8nVAieSrR1.IwQ37bc4baM2MgQQ3peJrRTYySggFMC', 'กรรมการประเมิน', ''),
+(3, 'deen', 'deen', 'deen@gmail.com', 'deen', '$2b$10$3wLi9HLC9nV8.jKEUU4IFuLdUohgYMuDqrktnsMZYbhqSqoydJ//i', 'กรรมการประเมิน', ''),
+(4, 'feen1', 'feen', 'feen@gmail.com', 'feen', '$2b$10$VStMS3Uw/NDebLK1Gi7iRulcO60ojwDAA4LWgtIRDsTkdPWXwwRRq', 'กรรมการประเมิน', ''),
+(5, 'Admin', '1', 'admin@gamil.com', 'admin', '$2b$10$fVgEnlUvihigQwqTapO0HOh6qjFtEIxS3aho2xVbJYf3TNKQC8i2K', 'ฝ่ายบุคลากร', ''),
+(6, 'admin', '2', 'admin2@gmail.com', 'admin2', '$2b$10$IfKZvM38X5mf4vT8bHirkeb9vJBIjZNeAqNuasqFUNYYdhcCDluiy', 'ฝ่ายบุคลากร', ''),
+(8, 'neem', 'neem', 'neem@gmail.com', 'neem', '$2b$10$EGJE1JJA/1TAERfz92JTUOsN1MXZN10jseKgaDtkhLTYgqVkth1Im', 'ผู้รับการประเมินผล', ''),
+(9, 'meet1', 'meet', 'meet@gmail.com', 'meet', '$2b$10$Foah9Dk9J3/c9IhgXoKfo.KRu3TfaZ9pSXgS1cD1IPgq5UTQuXUle', 'ผู้รับการประเมินผล', '1772899093301.png'),
+(10, 'ceen', 'ceen', 'ceen@gmail.com', 'ceen', '$2b$10$t.Dj1izpgiMQHnDMKAXUquqiIlvDjCNRLnbVu8rMBJZDWhBPMhSQi', 'ผู้รับการประเมินผล', ''),
+(11, 'zeen1', 'zeen1', 'zeen@gmail.com', 'zeen', '$2b$10$rP7j7XqhIYsc/Tk3SBUc0eE9Hc3bFxhFttORaSkefvfkUcL7ZlmEe', 'ผู้รับการประเมินผล', ''),
+(12, 'geen', 'geen', 'geen@gmail.com', 'geen', '$2b$10$zEgLlThHOKyRjVVwGZnlXOOJp4n9nHhwjX9f3aiahBfIVlfG40YK6', 'กรรมการประเมิน', ''),
+(13, 'jeen', 'jeen', 'jeen@gmail.com', 'jeen', '$2b$10$mDiXozSsLU2yR127ngYegO6oLMEqfepXqnGLltZM3xRes99.OeSKG', 'กรรมการประเมิน', ''),
+(14, 'suchat1', 'rattanawiwte1', 'hi@gmail.com', 'suchat', '$2b$10$Z3NA7fQLH8IuTu30sNTXSOF9/IlLAphxrYtiRX6rWPOlPqrwmTm7u', 'ผู้รับการประเมินผล', '1772898874435.jpg');
 
 -- --------------------------------------------------------
 
@@ -400,13 +416,13 @@ ALTER TABLE `tb_indicate`
 -- AUTO_INCREMENT for table `tb_log`
 --
 ALTER TABLE `tb_log`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tb_member`
 --
 ALTER TABLE `tb_member`
-  MODIFY `id_member` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_member` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tb_system`
