@@ -22,6 +22,31 @@
                             </v-col>
                         </v-row>
                     </v-card-text>
+                    <br><br><br>
+                <p class="text-center text-h5 font-weight-bold">ประวัติการเข้าสู่ระบบ</p>
+                <br>
+                <v-table class="pa-4">
+                    <thead>
+                        <tr>
+                            <th class="border text-center">ลำดับ</th>
+                            <th class="border text-center">ชื้อผู้ใช้</th>
+                            <th class="border text-center">IP Address</th>
+                            <th class="border text-center">สถานะ</th>
+                            <th class="border text-center">User Agent</th>
+                            <th class="border text-center">วันที่</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(items,index) in result_ip" :key="items.id_log">
+                            <td class="text-center border">{{ index+1 }}</td>
+                            <td class="text-center border">{{ items.username }}</td>
+                            <td class="text-center border">{{ items.ip_address }}</td>
+                            <td class="text-center border">{{ items.status }}</td>
+                            <td class="text-center border">{{ items.user_agent }}</td>
+                            <td class="text-center border">{{ items.access_date }}</td>
+                        </tr>
+                    </tbody>
+                </v-table>
                 </v-card>
    </v-container>
 </template>
@@ -34,6 +59,7 @@ const token = process.client ? localStorage.getItem('token') : null
 
 const box = ref ([])
 const box2 = ref ([])
+const result_ip = ref ([])
 
 const fetch = async () => {
     try{
@@ -45,7 +71,20 @@ const fetch = async () => {
     }
 }
 
-onMounted(fetch)
+const fetch2 = async () => {
+    try{
+        const res2 = await axios.get(`${api}/dash/ip`,{headers:{Authorization:`Bearer ${token}`}})
+        result_ip.value = res2.data
+    }catch(err){
+        console.error("Error Fetching Log",err)
+    }
+}
+
+onMounted(() => {
+    fetch(),
+    fetch2()
+})
+
 </script>
 
 <style scoped>

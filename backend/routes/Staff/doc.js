@@ -38,6 +38,11 @@ router.post('/',verifyToken,requireRole('ฝ่ายบุคลากร'),asy
     try{
         const {name_doc} = req.body
         const file = req.files?.file
+
+        const maxSize = 10 * 1024 * 1024 // 10 MB (สููตรการคำนวณขนาดไฟล์ หาก 5 MB = 5 * 1024 * 1024)
+        if(file.size > maxSize){
+            return res.status(400).json({message:'ไฟล์มีขนาดใหญ่เกินไป (จำกัดไม่เกิน 10MB)'})
+        }
         const filename = Date.now() + path.extname(file.name)
         await file.mv(path.join(uploadDir,filename))
         await db.query(`insert into tb_doc (name_doc,day_doc,file) values (?,CURDATE(),?)`,[name_doc,filename])

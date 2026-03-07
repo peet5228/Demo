@@ -71,6 +71,7 @@ router.get(`/:id_member`,verifyToken,requireRole('ฝ่ายบุคลาก
 // API สำหรับ Update ข้อมูล
 router.put('/:id_member',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
+        const id_admin = req.user.id_member
         const {id_member} = req.params
         const {first_name,last_name,email,username,password,role} = req.body
         if(password && password.trim()){
@@ -79,7 +80,7 @@ router.put('/:id_member',verifyToken,requireRole('ฝ่ายบุคลาก
         }else{
             await db.query(`update tb_member set first_name=?,last_name=?,email=?,username=?,role=? where id_member='${id_member}'`,[first_name,last_name,email,username,role])
         }
-        await db.query(`insert into tb_his (id_member,detail,date) values (?,?,CURDATE())`,[id_member,'edit'])
+        await db.query(`insert into tb_his (id_edit,id_member,detail,date) values (?,?,?,CURDATE())`,[id_admin,id_member,'edit'])
         // res.json(rows)
         res.json({message:'Update Success!'})
     }catch(err){
@@ -91,8 +92,10 @@ router.put('/:id_member',verifyToken,requireRole('ฝ่ายบุคลาก
 // API สำหรับ Delete ข้อมูล
 router.delete(`/:id_member`,verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
+        const id_admin = req.user.id_member
         const {id_member} = req.params
         const [rows] = await db.query(`delete from tb_member where id_member='${id_member}'`)
+        await db.query(`insert into tb_his (id_edit,id_member,detail,date) values (?,?,?,CURDATE())`,[id_admin,id_member,'Delete'])
         // res.json(row)
         res.json({rows,message:'Delete Success!'})
     }catch(err){

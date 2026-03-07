@@ -78,6 +78,10 @@ const fetch = async () => {
 }
 const saveMember = async () => {
     if(!name_doc.value || !file.value ) return alert('กรุณากรอกชื่อเอกสารและแนบไฟล์')
+    const maxSize = 10 * 1024 * 1024 
+    if (file.value.size > maxSize) {
+        return alert('ไฟล์มีขนาดใหญ่เกินไป (ห้ามเกิน 10MB)')
+    }
     try{
         const formData = new FormData()
         formData.append('name_doc',name_doc.value)
