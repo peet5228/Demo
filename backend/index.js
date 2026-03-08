@@ -2,6 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const fileupload = require('express-fileupload')
 const path = require('path')
+const { exec } = require('child_process');
+const fs = require('fs');
 const cors = require('cors')
 const app = express()
 
@@ -60,6 +62,12 @@ app.use('/api/Staff/score_commit',scoreC)
 
 const his = require('./routes/Staff/his')
 app.use('/api/Staff/his',his)
+
+const backup = require('./routes/Staff/backup')
+app.use('/api/Staff/backup', backup)
+
+const restore = require('./routes/Staff/restore')
+app.use('/api/Staff/restore', restore)
 
 // Committee Endpoint API ============
 const check_confirm = require('./routes/Commit/check_confirm')
