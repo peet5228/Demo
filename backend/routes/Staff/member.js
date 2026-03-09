@@ -18,6 +18,29 @@ const {verifyToken , requireRole} = require('../../middleware/authMiddleware')
 // })
 // =============== DEMO =====
 
+// New!! Add
+router.post('/add',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
+    try{  
+        const id = req.user.id_member // ID ของคนกดเพิ่ม (ฝ่ายบุคคล)
+        const {first_name,last_name,email,username,password,role} = req.body
+        const hashPassword = await bc.hash(password,10)
+        
+        // 1. บันทึกข้อมูลสมาชิกลง tb_member
+        const [rows] = await db.query(`insert into tb_member (first_name,last_name,email,username,password,role,pic_user) values (?,?,?,?,?,?,?)`,[first_name,last_name,email,username,hashPassword,role,"no image"])
+        
+        // 2. ดึง ID ของสมาชิกใหม่ที่ระบบเพิ่งสร้างให้ (Auto Increment ID)
+        const new_member_id = rows.insertId 
+
+        // 3. บันทึกประวัติ โดยเอา ID ใหม่ใส่เข้าไปแทน null
+        await db.query(`insert into tb_his (id_edit,id_member,detail,date) values (?,?,?,CURDATE())`,[id, new_member_id, null])
+        
+        res.json({rows,message:'Add Member Success!'})
+    }catch(err){
+        console.error("Error Add Member",err)
+        res.status(500).json({message:'Error Add Memmber'})
+    }
+})
+
 // API สำหรับ Get ข้อมูล
 router.get(`/eva`,verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{

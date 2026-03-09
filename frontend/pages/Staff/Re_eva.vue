@@ -1,48 +1,48 @@
 <template>
     <v-container fluid class="py-10" ref="r">
-                <v-card>
-                    <v-sheet class="pa-4 text-center" color="">
-                        <h1 class="text-h5 font-weight-bold">รายงานผู้รับการประเมิน</h1>
-                    </v-sheet>
-                    <v-card-text>
+        <v-card>
+            <div id="pdf-content">
+                <v-sheet class="pa-4 text-center" color="">
+                    <h1 class="text-h5 font-weight-bold">รายงานผู้รับการประเมิน</h1>
+                </v-sheet>
+                <v-card-text>
+                    <v-table>
+                        <thead>
+                            <tr>
+                                <th class="text-center border">ลำดับ</th>
+                                <th class="text-center border">ชื่อ-นามสกุล</th>
+                                <th class="text-center border">อีเมล</th>
+                                <th class="text-center border">ชื่อผู้ใช้</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(items,index) in filtreredResult" :key="items.id_member">
+                                <td class="text-center border">{{ index+1 }}</td>
+                                <td class="text-center border">{{ items.first_name }} {{ items.last_name }}<br><span class="opacity-70">{{ items.role }}</span></td>
+                                <td class="text-center border">{{ items.email }}</td>
+                                <td class="text-center border">{{ items.username }}</td>
+                            </tr>
+                            <tr v-if="filtreredResult.length === 0">
+                                <td class="text-center border" colspan="4">ไม่พบข้อมูล</td>
+                            </tr>
+                        </tbody>
+                    </v-table>
+                </v-card-text>
+            </div> <center class="pb-6">
+                <v-btn color="warning" class="no-p mr-2" @click="printDoc" prepend-icon="mdi-printer">พิมพ์</v-btn>
+                <v-btn color="primary" class="no-p" @click="exportPDF" prepend-icon="mdi-download">ดาวน์โหลด PDF</v-btn>
+            </center>
 
-                        <v-table>
-                            <thead>
-                                <tr>
-                                    <th class="text-center border">ลำดับ</th>
-                                    <th class="text-center border">ชื่อ-นามสกุล</th>
-                                    <th class="text-center border">อีเมล</th>
-                                    <th class="text-center border">ชื่อผู้ใช้</th>
-                                    <!-- <th class="text-center border">จัดการ</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(items,index) in filtreredResult" :key="items.id_member">
-                                    <td class="text-center border">{{ index+1 }}</td>
-                                    <td class="text-center border">{{ items.first_name }} {{ items.last_name }}<br><span class="opacity-70">{{ items.role }}</span></td>
-                                    <td class="text-center border">{{ items.email }}</td>
-                                    <td class="text-center border">{{ items.username }}</td>
-                                    <!-- <td class="text-center border">
-                                        <v-btn color="warning" class="text-white" size="small" @click="edit(items)">แก้ไข</v-btn>&nbsp;
-                                        <v-btn color="error" class="text-white" size="small" @click="del(items.id_member)">ลบ</v-btn>
-                                    </td> -->
-                                </tr>
-                                <tr v-if="filtreredResult.length === 0">
-                                    <td class="text-center border" colspan="10">ไม่พบข้อมูล</td>
-                                </tr>
-                            </tbody>
-
-                        </v-table><br>
-                        <center><v-btn color="warning" class="no-p" @click="printDoc" prepend-icon="mdi-printer">พิมพ์</v-btn></center>
-                    </v-card-text>
-                </v-card>
+        </v-card>
    </v-container>
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
-import {api,staff} from '../../API/base'
-// import {pdf} from "../../API/pdf"
+import { api, staff } from '../../API/base'
+// 3. Import html2pdf
+import html2pdf from 'html2pdf.js'
 
 const token = process.client ? localStorage.getItem('token') : null
 
@@ -50,7 +50,23 @@ const printDoc = () =>{
     window.print()
 }
 
-const result = ref ([])
+// 4. เพิ่มฟังก์ชัน Export PDF
+const exportPDF = () => {
+    const element = document.getElementById('pdf-content')
+    
+    const opt = {
+        margin:       10,
+        filename:     'รายงานผู้รับการประเมิน.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        // ตั้งค่า orientation เป็น 'landscape' (แนวนอน) เพื่อให้เหมาะกับตาราง
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    }
+
+    html2pdf().set(opt).from(element).save()
+}
+
+const result = ref([])
 const r = ref(null)
 
 const seach = ref('')
@@ -152,7 +168,6 @@ const del = async (id_member:number) => {
         console.error("Error Delete",err)
     }
 }
-
 
 onMounted(fetch)
 </script>

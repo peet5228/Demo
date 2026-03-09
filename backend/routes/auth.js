@@ -5,6 +5,7 @@ const bc = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const path = require('path')
+const { verify } = require('crypto')
 const uploadDir = path.join(__dirname,'../uploads/pic_user')
 
 // Login API

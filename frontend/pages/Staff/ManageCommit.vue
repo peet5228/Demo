@@ -37,9 +37,18 @@
                             </v-row>
                         </v-form>
                         <br><br><br>
-                        <v-row>
-                            <v-text-field v-model="seach" label="ค้นหา" class="pa-4" prepend-inner-icon="mdi-magnify"></v-text-field>
+                        
+                        <v-row class="pa-4 align-center">
+                            <v-col cols="12" md="9" class="pa-0 pr-md-4">
+                                <v-text-field v-model="seach" label="ค้นหา" prepend-inner-icon="mdi-magnify" hide-details></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="3" class="pa-0 text-md-right text-center mt-3 mt-md-0">
+                                <v-btn color="success" size="large" @click="exportExcel">
+                                    Export Excel
+                                </v-btn>
+                            </v-col>
                         </v-row>
+
                         <v-table>
                             <thead>
                                 <tr>
@@ -159,7 +168,7 @@ const saveMember = async () =>{
         }
         form.value.id_member
             ? await axios.put(`${staff}/member/${form.value.id_member}`,payload , {headers:{Authorization: `Bearer ${token}`}})
-            : await axios.post(`${api}/auth/regis`,{...payload,password:form.value.password})
+            : await axios.post(`${staff}/member/add`,{...payload,password:form.value.password} , {headers:{Authorization: `Bearer ${token}`}})
         alert('ทำรายการสำเร็จ')
         await fetch()
         await reset()
@@ -177,6 +186,51 @@ const del = async (id_member:number) => {
     }catch(err){
         console.error("Error Delete",err)
     }
+}
+
+// ------------------------------------
+// ฟังก์ชันสำหรับ Export Excel (CSV Format)
+// ------------------------------------
+const exportExcel = () => {
+    // ใช้ข้อมูลที่ผ่านการค้นหาแล้วมา Export
+    const data = filtreredResult.value;
+    
+    if (data.length === 0) {
+        alert('ไม่มีข้อมูลให้ Export');
+        return;
+    }
+
+    // สร้างหัวตาราง
+    const headers = ['ลำดับ', 'ชื่อ', 'นามสกุล', 'ประเภท', 'อีเมล', 'ชื่อผู้ใช้'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    // วนลูปยัดข้อมูลลง Array ทีละแถว
+    data.forEach((item: any, index: number) => {
+        const row = [
+            index + 1,
+            item.first_name,
+            item.last_name,
+            item.role,
+            item.email,
+            item.username
+        ];
+        // ใช้ "" ครอบข้อมูลแต่ละช่อง ป้องกันปัญหากรณีมี , (ลูกน้ำ) อยู่ในข้อความ
+        csvRows.push(row.map(val => `"${val || ''}"`).join(','));
+    });
+
+    // ใส่ \uFEFF ด้านหน้าเพื่อให้ Excel รู้ว่าเป็น UTF-8 (ภาษาไทยจะได้ไม่เป็นภาษาต่างดาว)
+    const csvString = '\uFEFF' + csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    // สร้างลิงก์และสั่งคลิกเพื่อดาวน์โหลด
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `รายชื่อกรรมการประเมิน_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 onMounted(fetch)

@@ -37,9 +37,18 @@
                             </v-row>
                         </v-form>
                         <br><br><br>
-                        <v-row>
-                            <v-text-field v-model="seach" label="ค้นหา" class="pa-4" prepend-inner-icon="mdi-magnify"></v-text-field>
+                        
+                        <v-row class="pa-4 align-center">
+                            <v-col cols="12" md="9" class="pa-0 pr-md-4">
+                                <v-text-field v-model="seach" label="ค้นหา" prepend-inner-icon="mdi-magnify" hide-details></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="3" class="pa-0 text-md-right text-center mt-3 mt-md-0">
+                                <v-btn color="success" size="large" @click="exportExcel">
+                                    Export Excel
+                                </v-btn>
+                            </v-col>
                         </v-row>
+
                         <v-table>
                             <thead>
                                 <tr>
@@ -177,6 +186,46 @@ const del = async (id_member:number) => {
     }catch(err){
         console.error("Error Delete",err)
     }
+}
+
+// ------------------------------------
+// ฟังก์ชันสำหรับ Export Excel (CSV Format)
+// ------------------------------------
+const exportExcel = () => {
+    const data = filtreredResult.value;
+    
+    if (data.length === 0) {
+        alert('ไม่มีข้อมูลให้ Export');
+        return;
+    }
+
+    const headers = ['ลำดับ', 'ชื่อ', 'นามสกุล', 'ประเภท', 'อีเมล', 'ชื่อผู้ใช้'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    data.forEach((item: any, index: number) => {
+        const row = [
+            index + 1,
+            item.first_name,
+            item.last_name,
+            item.role,
+            item.email,
+            item.username
+        ];
+        csvRows.push(row.map(val => `"${val || ''}"`).join(','));
+    });
+
+    const csvString = '\uFEFF' + csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    // เปลี่ยนชื่อไฟล์ดาวน์โหลดให้ตรงกับบริบทของหน้านี้
+    link.setAttribute('download', `รายชื่อผู้รับการประเมิน_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 onMounted(fetch)
